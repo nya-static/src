@@ -8,7 +8,9 @@ yum -y groupinstall “Development Tools”
 wget https://github.com/jedisct1/libsodium/releases/download/1.0.14/libsodium-1.0.14.tar.gz
 tar -xf libsodium*.tar.gz
 cd libsodium*
-./configure && make -j2 && make install
+./configure
+make -j2 
+make install
 echo /usr/local/lib > /etc/ld.so.conf.d/usr_local_lib.conf
 ldconfig
 
@@ -27,35 +29,36 @@ index-url=https://mirror-ord.pypi.io/pypi/simple/" > ~/.pydistutils.cfg
 
 #下载后端
 pip install cymysql
+cd
+rm -rf shadowsocks
 git clone -b manyuser https://github.com/glzjin/shadowsocks.git
 cd shadowsocks
 chmod +x *.sh
 pip install requirements.txt
 cp apiconfig.py userapiconfig.py
 cp config.json user-config.json
-cp /root/shadowsocks/apiconfig.py /root/shadowsocks/userapiconfig.py
 
 #加入自启动
 chmod +x /etc/rc.d/rc.local
 echo "bash /root/shadowsocksr/run.sh" >> vi /etc/rc.d/rc.local
 
 #对接面板
+echo
 read -p "Please input your Node_ID: " node_id
+echo
 read -p "Please input your mysql host: " sqlhost
+echo
 read -p "Please input your mysql username: " sqluser
+echo
 read -p "Please input your mysql password: " sqlpass
+echo
 read -p "Please input your mysql dbname: " sqldbname
 
-$node_id=node_id
 sed -i "2s/1/$node_id/g" /root/shadowsocks/userapiconfig.py
 sed -i "15s/modwebapi/glzjinmod/1"  /root/shadowsocks/userapiconfig.py
-$sqlhost=sqlhost
 sed -i "24s/127.0.0.1/$sqlhost/g" /root/shadowsocks/userapiconfig.py
-$sqluser=sqluser
 sed -i "26s/ss/$sqluser/g" /root/shadowsocks/userapiconfig.py
-$sqlpass=sqlpass
 sed -i "27s/ss/$sqlpass/g" /root/shadowsocks/userapiconfig.py
-$sqldbname=sqldbname
 sed -i "28s/shadowsocks/$sqldbname"/g /root/shadowsocks/userapiconfig.py
 
 #配置supervisor
@@ -87,10 +90,7 @@ if [ -f /root/test.sh ]
 then
     bash rm-aliyun-service.sh;
 fi
-
+cd
 cd sha*
 bash run.sh
-
-clear
-echo
 echo done.....
