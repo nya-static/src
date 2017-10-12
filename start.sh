@@ -3,7 +3,10 @@ yum update -y
 yum install wget git -y
 yum install python-setuptools easy_install pip -y
 yum -y groupinstall “Development Tools”
-
+wget https://bootstrap.pypa.io/get-pip.py
+if [ ! -d "/usr/bin/pip" ]; then
+  python get-pip.py
+fi
 #编译libsodium
 wget https://github.com/jedisct1/libsodium/releases/download/1.0.14/libsodium-1.0.14.tar.gz
 tar -xf libsodium*.tar.gz
