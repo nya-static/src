@@ -7,15 +7,8 @@ wget https://bootstrap.pypa.io/get-pip.py
 if [ ! -d "/usr/bin/pip" ]; then
   python get-pip.py
 fi
-#编译libsodium
-wget https://github.com/jedisct1/libsodium/releases/download/1.0.14/libsodium-1.0.14.tar.gz
-tar -xf libsodium*.tar.gz
-cd libsodium*
-./configure
-make -j2 
-make install
-echo /usr/local/lib > /etc/ld.so.conf.d/usr_local_lib.conf
-ldconfig
+yum install epel-release -y
+yum install libsodium -y
 
 #配置pypi源
 if [ ! -d "/root/.pip" ]; then
