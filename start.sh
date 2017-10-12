@@ -7,6 +7,7 @@ wget https://bootstrap.pypa.io/get-pip.py
 if [ ! -d "/usr/bin/pip" ]; then
   python get-pip.py
 fi
+rm -rf get-pip.py
 yum install epel-release -y
 yum install libsodium -y
 
@@ -83,7 +84,7 @@ sed -i '$a * hard nofile 512000\n* soft nofile 512000' /etc/security/limits.conf
 
 #aliyun service
 wget https://raw.githubusercontent.com/nya-static/src/master/sh/rm-aliyun-service.sh
-if [ -f /root/test.sh ]
+if [ -f /usr/sbin/aliyun-service ]
 then
     bash rm-aliyun-service.sh;
 fi
