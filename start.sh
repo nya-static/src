@@ -42,7 +42,7 @@ echo "bash /root/shadowsocksr/run.sh" >> /etc/rc.d/rc.local
 
 #对接面板
 echo
-read -p "Please input your Node_ID: " node_id
+read -p "Please input your node_id: " node_id
 echo
 read -p "Please input your mysql host: " sqlhost
 echo
