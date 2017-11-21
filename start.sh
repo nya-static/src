@@ -1,6 +1,8 @@
 #/bin/sh
 yum update -y
 yum install wget git -y
+yum install epel-release -y
+yum install libsodium -y
 yum install python-setuptools easy_install pip -y
 yum -y groupinstall “Development Tools”
 wget https://bootstrap.pypa.io/get-pip.py
@@ -8,9 +10,6 @@ if [ ! -d "/usr/bin/pip" ]; then
   python get-pip.py
 fi
 rm -rf get-pip.py
-yum install epel-release -y
-yum install libsodium -y
-
 #配置pypi源
 if [ ! -d "/root/.pip" ]; then
   mkdir /root/.pip
@@ -34,11 +33,9 @@ cd shadowsocks
 chmod +x *.sh
 pip  install -r requirements.txt
 cp apiconfig.py userapiconfig.py
-cp config.json user-config.json
-
 #加入自启动
 chmod +x /etc/rc.d/rc.local
-echo "bash /root/shadowsocksr/run.sh" >> /etc/rc.d/rc.local
+echo "bash /root/shadowsocks/run.sh" >> /etc/rc.d/rc.local
 
 #对接面板
 echo
